@@ -13,6 +13,6 @@ namespace SolidWorx\VuetifyBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class VuetifyBundle extends Bundle
+class SolidWorxVuetifyBundle extends Bundle
 {
 }
