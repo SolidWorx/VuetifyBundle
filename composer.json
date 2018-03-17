@@ -1,0 +1,15 @@
+{
+    "name": "solidworx/vuetify-bundle",
+    "description": "Add support for Vuetify in Symfony",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pierre du Plessis",
+            "email": "open-source@solidworx.co"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle": "^3.0 || ^4.0"
+    }
+}
