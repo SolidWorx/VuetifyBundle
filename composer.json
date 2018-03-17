@@ -9,6 +9,11 @@
             "email": "open-source@solidworx.co"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "SolidWorx\\VuetifyBundle\\": "src"
+        }
+    },
     "require": {
         "symfony/framework-bundle": "^3.0 || ^4.0"
     }
