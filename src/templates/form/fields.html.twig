@@ -78,3 +78,33 @@
     {% endfor %}
     :items="{{ items|json_encode }}"
 {%- endblock choice_widget_options -%}
+
+{%- block date_widget -%}
+    {%- if widget == 'single_text' -%}
+        <v-date-picker type="{{ picker_type }}" value="{{ value }}" reactive @input="$refs['{{ id }}'].value = $event"
+            {%- if landscape %}landscape{% endif -%}
+        ></v-date-picker>
+        <input type="hidden" {{ block('widget_attributes') }} ref="{{ id }}">
+    {%- else -%}
+        <div {{ block('widget_container_attributes') }}>
+            {{- date_pattern|replace({
+                '{{ year }}':  form_widget(form.year),
+                '{{ month }}': form_widget(form.month),
+                '{{ day }}':   form_widget(form.day),
+            })|raw -}}
+        </div>
+    {%- endif -%}
+{%- endblock date_widget -%}
+
+{%- block month_widget -%}
+    {%- if widget == 'single_text' -%}
+        {{- block('date_widget') -}}
+    {%- else -%}
+        <div {{ block('widget_container_attributes') }}>
+            {{- date_pattern|replace({
+                '{{ year }}':  form_widget(form.year),
+                '{{ month }}': form_widget(form.month)
+            })|raw -}}
+        </div>
+    {%- endif -%}
+{%- endblock month_widget -%}
