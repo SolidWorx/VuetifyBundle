@@ -4,6 +4,7 @@
 
 {%- block form_widget_simple -%}
     {%- set type = type|default('text') -%}
+
     {% if label is empty -%}
         {%- if label_format is not empty -%}
             {% set label = label_format|replace({
@@ -18,6 +19,7 @@
     {%- if type is not same as('hidden') -%}
         <v-text-field type="{{ type }}" label="{{ label }}" value="{{ value }}" {{ block('widget_attributes') }}
                 {%- if errors|length > 0 %} error  :error-messages="[{%- for error in errors -%}'{{ error.message|e('html_attr') }}'{%- endfor -%}]" {%- endif -%}
+                {% if textarea is defined %}multi-line{% endif %}
         ></v-text-field>
     {%- else -%}
         <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
@@ -46,3 +48,33 @@
 {%- block checkbox_widget -%}
     <v-checkbox label="{{ label }}"  {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}></v-checkbox>
 {%- endblock checkbox_widget -%}
+
+{%- block textarea_widget -%}
+    {% set textarea = true %}
+    {{- block('form_widget_simple') -}}
+{%- endblock textarea_widget -%}
+
+{%- block choice_widget_collapsed -%}
+    {%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) -%}
+        {% set required = false %}
+    {%- endif -%}
+    <v-select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}
+        {%- set options = choices %}
+        {{- block('choice_widget_options')|raw -}}
+    >
+        </v-select>
+{%- endblock choice_widget_collapsed -%}
+
+{%- block choice_widget_options -%}
+    {% set items = [] %}
+    {% for group_label, choice in options %}
+        {%- if choice is iterable -%}
+            {% set options = choice %}
+
+            {{- block('choice_widget_options') -}}
+        {%- else -%}
+            {% set items = items|merge([{"value" : choice.value, "text": choice_translation_domain is same as(false) ? choice.label : choice.label|trans({}, choice_translation_domain)}]) %}
+        {%- endif -%}
+    {% endfor %}
+    :items="{{ items|json_encode }}"
+{%- endblock choice_widget_options -%}
