@@ -1,0 +1,48 @@
+{%- block form_row -%}
+    {{- form_widget(form) -}}
+{%- endblock form_row -%}
+
+{%- block form_widget_simple -%}
+    {%- set type = type|default('text') -%}
+    {% if label is empty -%}
+        {%- if label_format is not empty -%}
+            {% set label = label_format|replace({
+                '%name%': name,
+                '%id%': id,
+            }) %}
+        {%- else -%}
+            {% set label = name|humanize %}
+        {%- endif -%}
+    {%- endif -%}
+
+    {%- if type is not same as('hidden') -%}
+        <v-text-field type="{{ type }}" label="{{ label }}" value="{{ value }}" {{ block('widget_attributes') }}
+                {%- if errors|length > 0 %} error  :error-messages="[{%- for error in errors -%}'{{ error.message|e('html_attr') }}'{%- endfor -%}]" {%- endif -%}
+        ></v-text-field>
+    {%- else -%}
+        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    {%- endif -%}
+{%- endblock form_widget_simple -%}
+
+{%- block choice_widget_expanded -%}
+    <div {{ block('widget_container_attributes') }}>
+        {{- form_label(form) -}}
+
+        {%- if not multiple %}
+            <v-radio-group input-value="{{ value }}" {{ block('widget_attributes') }}>
+        {% endif -%}
+            {%- for child in form %}
+                {{- form_widget(child) -}}
+            {% endfor -%}
+
+        {%- if not multiple %}</v-radio-group>{% endif -%}
+    </div>
+{%- endblock choice_widget_expanded -%}
+
+{%- block radio_widget -%}
+    <v-radio label="{{ label }}" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}></v-radio>
+{%- endblock radio_widget -%}
+
+{%- block checkbox_widget -%}
+    <v-checkbox label="{{ label }}"  {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}></v-checkbox>
+{%- endblock checkbox_widget -%}
