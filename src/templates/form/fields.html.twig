@@ -42,7 +42,8 @@
 {%- endblock choice_widget_expanded -%}
 
 {%- block radio_widget -%}
-    <v-radio label="{{ label }}" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}></v-radio>
+    {% set radio_type = switch is same as(true) ? 'switch' : 'radio' %}
+    <v-{{ radio_type }} label="{{ label }}" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}></v-{{ radio_type }}>
 {%- endblock radio_widget -%}
 
 {%- block checkbox_widget -%}
