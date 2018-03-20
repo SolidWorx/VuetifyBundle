@@ -27,7 +27,7 @@ class AppKernel extends Kernel
     {
         $bundles = [
             ...
-            new SolidWorx\VuetifyBundle\VuetifyBundle(),
+            new SolidWorx\VuetifyBundle\SolidWorxVuetifyBundle(),
             ...
         ];
         
@@ -37,6 +37,8 @@ class AppKernel extends Kernel
 ```
 
 If you are using Symfony 4 with Flex, then the bundle should automatically be registered.
+
+The bundle can be configured in your app/config.yml file. See the [Configuration Reference](#configuration) for possible configuration values.
 
 Usage
 -----
@@ -98,4 +100,115 @@ class MyFormType extends AbstractType
         );
     }
 }
+```
+
+### Alert
+
+You can use the `v_alert` twig function to display alert messages. The function takes three arguments, `message`, `type` and `options`.
+
+This function can be used with Symfony's [flash messages](https://symfony.com/doc/current/controller.html#flash-messages):
+
+```
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        {{ v_alert(message, label) }}
+    {% endfor %}
+{% endfor %}
+```
+
+Or standalone:
+
+```twig
+    {{ v_alert('Display some important information', 'info', {'outline': true}) }}
+```
+
+#### Available Alert Types:
+
+* success
+* info
+* error
+* warning
+
+#### Available Options
+
+| **Option** | **Type** | **Description**
+|------------|----------|-----------------
+| color | string | Applies specified color to the control
+| dismissible | bool | Specifies that the Alert can be closed. The `v-model` option must be set when this is `true` in order for the alert to be disissed
+| icon | string | Designates a specific icon
+| mode | string | Sets the transition mode
+| origin | string | Sets the transition origin
+| outline | bool | Alert will have an outline
+| transition | string | Sets the component transition. Can be one of the built in transitions or your own
+| v-model | string | Applies a Vue model to the alert. When setting `dismissible` to `true`, then this value is required
+
+You can also set default configuration options for the alerts. Configuration can be either global, or you can set options per alert type.
+See the [Configuration Reference](#configuration) for more information
+
+## Configuration
+
+Below is the full configuration reference:
+
+```yaml
+vuetify:
+    alert:
+
+        # Sets global default options for each alert. Options per alert type can be overwritten in the `types` config.
+        default:
+
+            # Specifies that the Alert can be closed. The `v-model` option must be set when this is `true` in order for the alert to be dismissed
+            dismissible:          false
+
+            # Alert will have an outline
+            outline:              false
+
+            # Applies specified color to the control
+            color:                null
+
+            # Sets the transition mode
+            mode:                 null
+
+            # Sets the component transition. Can be one of the built in transitions or your own
+            transition:           null
+
+            # Sets the transition origin
+            origin:               null
+
+            # Designates a specific icon
+            icon:                 null
+
+        # Sets the default config per alert type. This will overwrite any global config for a specific alert type
+        types:
+            success:
+                dismissible:          false
+                outline:              false
+                color:                null
+                mode:                 null
+                transition:           null
+                origin:               null
+                icon:                 null
+            info:
+                dismissible:          false
+                outline:              false
+                color:                null
+                mode:                 null
+                transition:           null
+                origin:               null
+                icon:                 null
+            error:
+                dismissible:          false
+                outline:              false
+                color:                null
+                mode:                 null
+                transition:           null
+                origin:               null
+                icon:                 null
+            warning:
+                dismissible:          false
+                outline:              false
+                color:                null
+                mode:                 null
+                transition:           null
+                origin:               null
+                icon:                 null
 ```
