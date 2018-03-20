@@ -1,0 +1,38 @@
+language: php
+
+sudo: false
+
+env:
+    - COMPOSER_OPTIONS="
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 7.2
+      env:
+        - COMPOSER_OPTIONS="--prefer-lowest"
+    - php: 7.2
+      env:
+        - COMPOSER_OPTIONS="--prefer-stable"
+    - php: nightly
+  allow_failures:
+    - php: nightly
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+before_install:
+  - composer self-update
+
+install:
+  - composer update -n "$COMPOSER_OPTIONS"
+
+script:
+    - vendor/bin/phpunit
+
+
+
+
+
+
