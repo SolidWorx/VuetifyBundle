@@ -17,5 +17,9 @@
     "require": {
         "symfony/framework-bundle": "^3.0 || ^4.0",
         "symfony/form": "^3.0 || ^4.0"
+    },
+    "require-dev": {
+        "twig/twig": "^2.4",
+        "phpunit/phpunit": "^7.0"
     }
 }

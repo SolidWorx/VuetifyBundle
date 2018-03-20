@@ -11,8 +11,13 @@ declare(strict_types=1);
 
 namespace SolidWorx\VuetifyBundle;
 
+use SolidWorx\VuetifyBundle\DependencyInjection\VuetifyExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class SolidWorxVuetifyBundle extends Bundle
 {
+    public function getContainerExtension()
+    {
+        return new VuetifyExtension();
+    }
 }
