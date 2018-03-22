@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace SolidWorx\VuetifyBundle\DependencyInjection;
 
+use Knp\Bundle\MenuBundle\KnpMenuBundle;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -33,6 +34,7 @@ class Configuration implements ConfigurationInterface
         $root = $builder->root('vuetify');
 
         $this->addAlertSection($root);
+        $this->addMenuSection($root);
 
         return $builder;
     }
@@ -97,5 +99,91 @@ class Configuration implements ConfigurationInterface
         foreach ($this->types as $type) {
             $setOptionsConfig($types->arrayNode($type));
         }
+    }
+
+    private function addMenuSection(ArrayNodeDefinition $children)
+    {
+        $node = $children
+                ->children()
+                    ->arrayNode('menu')
+                    ->info('Enabled integration with knplabs/knp-mnu-bundle. This setting is automatically enabled when the knplabs/knp-mnu-bundle is installed.');
+
+        if (class_exists(KnpMenuBundle::class)) {
+            $node->canBeDisabled();
+        } else {
+            $node->canBeEnabled();
+        }
+
+        $node->children()
+            ->arrayNode('toolbar')
+                ->children()
+                    ->booleanNode('absolute')
+                        ->defaultNull()
+                    ->end()
+                    ->booleanNode('app')
+                        ->defaultNull()
+                    ->end()
+                    ->booleanNode('card')
+                        ->defaultNull()
+                    ->end()
+                    ->booleanNode('clipped_left')
+                        ->defaultNull()
+                    ->end()
+                    ->booleanNode('clipped_right')
+                        ->defaultNull()
+                    ->end()
+                    ->scalarNode('color')
+                        ->defaultNull()
+                    ->end()
+                    ->booleanNode('dark')
+                        ->defaultNull()
+                    ->end()
+                    ->booleanNode('dense')
+                        ->defaultNull()
+                    ->end()
+                    ->booleanNode('extended')
+                        ->defaultNull()
+                    ->end()
+                    ->scalarNode('extension_height')
+                        ->defaultNull()
+                    ->end()
+                    ->booleanNode('fixed')
+                        ->defaultNull()
+                    ->end()
+                    ->booleanNode('flat')
+                        ->defaultNull()
+                    ->end()
+                    ->booleanNode('floating')
+                        ->defaultNull()
+                    ->end()
+                    ->integerNode('height')
+                    ->end()
+                    ->scalarNode('inverted_scroll')
+                        ->defaultNull()
+                    ->end()
+                    ->booleanNode('light')
+                        ->defaultNull()
+                    ->end()
+                    ->booleanNode('manual_scroll')
+                        ->defaultNull()
+                    ->end()
+                    ->booleanNode('prominent')
+                        ->defaultNull()
+                    ->end()
+                    ->booleanNode('scroll_off_screen')
+                        ->defaultNull()
+                    ->end()
+                    ->scalarNode('scroll_target')
+                        ->defaultNull()
+                    ->end()
+                    ->booleanNode('scroll_toolbar_off_screen')
+                        ->defaultNull()
+                    ->end()
+                    ->booleanNode('tabs')
+                        ->defaultNull()
+                    ->end()
+                ->end()
+            ->end()
+            ;
     }
 }

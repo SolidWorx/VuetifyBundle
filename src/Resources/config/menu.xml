@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults autowire="true" autoconfigure="true">
+        </defaults>
+
+        <service class="SolidWorx\VuetifyBundle\Menu\Renderer\ToolbarRenderer" id="solid_worx_vuetify.menu_renderer.vuetify_toolbar_renderer">
+            <argument type="service" id="knp_menu.matcher" />
+            <argument>%knp_menu.renderer.list.options%</argument>
+            <argument>%kernel.charset%</argument>
+            <argument type="collection"></argument>
+            <tag name="knp_menu.renderer" alias="vuetify_toolbar"></tag>
+        </service>
+    </services>
+</container>

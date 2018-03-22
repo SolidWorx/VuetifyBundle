@@ -21,6 +21,7 @@ class VuetifyExtension extends Extension
 {
     /**
      * {@inheritdoc}
+     * @throws \Exception
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -28,7 +29,15 @@ class VuetifyExtension extends Extension
 
         $config = $this->processConfiguration(new Configuration(), $configs);
 
-        $loader->import('*.xml');
+        $loader->load('services.xml');
+
+        if ($config['menu']['enabled']) {
+            $loader->load('menu.xml');
+            if (isset($config['menu']['toolbar'])) {
+                $container->getDefinition('solid_worx_vuetify.menu_renderer.vuetify_toolbar_renderer')
+                    ->replaceArgument(3, $config['menu']['toolbar']);
+            }
+        }
 
         $container->getDefinition(VuetifyAlertExtension::class)->addArgument($config['alert']);
     }
