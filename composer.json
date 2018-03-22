@@ -22,5 +22,8 @@
         "twig/twig": "^2.4",
         "phpunit/phpunit": "^7.0",
         "knplabs/knp-menu-bundle": "^2.2"
+    },
+    "suggest": {
+        "knplabs/knp-menu-bundle": "For manu rendering integration"
     }
 }
