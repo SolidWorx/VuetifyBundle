@@ -15,6 +15,8 @@ use Knp\Menu\ItemInterface;
 use Knp\Menu\Matcher\MatcherInterface;
 use Knp\Menu\Renderer\Renderer;
 use Knp\Menu\Renderer\RendererInterface;
+use SolidWorx\VuetifyBundle\Menu\Divider;
+use SolidWorx\VuetifyBundle\Menu\Spacer;
 
 abstract class BaseRenderer extends Renderer implements RendererInterface
 {
@@ -121,11 +123,13 @@ abstract class BaseRenderer extends Renderer implements RendererInterface
             $html .= '<v-list>';
 
             foreach ($item->getChildren() as $child) {
-                $html .= '<v-list-tile href="'.$child->getUri().'"><v-list-tile-title>';
-
-                $html .= $this->renderLabel($child, $options);
-
-                $html .= '</v-list-tile-title></v-list-tile>';
+                if ($child instanceof Divider) {
+                    $html .= $child->getLabel();
+                } else {
+                    $html .= '<v-list-tile href="'.$child->getUri().'"><v-list-tile-title>';
+                    $html .= $this->renderLabel($child, $options);
+                    $html .= '</v-list-tile-title></v-list-tile>';
+                }
             }
 
             $html .= '</v-list>';
@@ -155,7 +159,7 @@ abstract class BaseRenderer extends Renderer implements RendererInterface
             }
         }
 
-        return implode(' ', $attr);
+        return $attr ? ' '.implode(' ', $attr) : '';
     }
 
     protected function renderLink(ItemInterface $item, array $options, array $attributes): string

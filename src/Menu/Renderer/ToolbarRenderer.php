@@ -12,12 +12,13 @@ declare(strict_types=1);
 namespace SolidWorx\VuetifyBundle\Menu\Renderer;
 
 use Knp\Menu\ItemInterface;
+use SolidWorx\VuetifyBundle\Menu\Spacer;
 
 final class ToolbarRenderer extends BaseRenderer
 {
     protected function renderList(ItemInterface $item, array $attributes, array $options): string
     {
-        $html = '<v-toolbar '.$this->buildComponentConfig().'>';
+        $html = '<v-toolbar'.$this->buildComponentConfig().'>';
         $html .= $this->renderChildren($item, $options);
         $html .= '</v-toolbar>';
 
@@ -35,10 +36,32 @@ final class ToolbarRenderer extends BaseRenderer
             $options['matchingDepth'] = $options['matchingDepth'] - 1;
         }
 
-        $html = '<v-toolbar-items class="hidden-sm-and-down">';
+        $html = '';
+        $items = [];
         foreach ($item->getChildren() as $child) {
-            $html .= $this->renderItem($child, $options);
+            if ($child instanceof Spacer) {
+                if (count($items) > 0) {
+                    $html .= $this->generateItemHtml($items);
+                    $items = [];
+                }
+
+                $html .= $child->getLabel();
+            } else {
+                $items[] = $this->renderItem($child, $options);
+            }
         }
+
+        if (count($items) > 0) {
+            $html .= $this->generateItemHtml($items);
+        }
+
+        return $html;
+    }
+
+    private function generateItemHtml(array $items): string
+    {
+        $html = '<v-toolbar-items class="hidden-sm-and-down">';
+        $html .= implode('', $items);
         $html .= '</v-toolbar-items>';
 
         return $html;

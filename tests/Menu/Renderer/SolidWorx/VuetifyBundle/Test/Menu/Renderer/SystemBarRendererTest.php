@@ -30,7 +30,7 @@ class SystembarRendererTest extends TestCase
         $menu->addChild('phone');
 
         $this->assertSame(
-            '<v-system-bar ><v-icon >home</v-icon><v-icon >phone</v-icon></v-system-bar>',
+            '<v-system-bar><v-icon >home</v-icon><v-icon >phone</v-icon></v-system-bar>',
             $renderer->render($menu)
         );
     }

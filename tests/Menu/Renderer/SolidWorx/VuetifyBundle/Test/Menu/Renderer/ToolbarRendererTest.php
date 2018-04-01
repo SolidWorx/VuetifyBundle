@@ -15,6 +15,7 @@ use Knp\Menu\Matcher\MatcherInterface;
 use Knp\Menu\MenuFactory;
 use PHPUnit\Framework\TestCase;
 use SolidWorx\VuetifyBundle\Menu\Renderer\ToolbarRenderer;
+use SolidWorx\VuetifyBundle\Menu\Spacer;
 
 class ToolbarRendererTest extends TestCase
 {
@@ -32,7 +33,7 @@ class ToolbarRendererTest extends TestCase
         $menu['About Me']->addChild('Edit profile');
 
         $this->assertSame(
-            '<v-toolbar ><v-toolbar-items class="hidden-sm-and-down"><v-btn flat href="" class="first">Home</v-btn><v-btn flat href="">Disclaimer</v-btn><v-menu><template slot="activator"><v-btn flat class="last">About Me <v-icon>arrow_drop_down</v-icon></v-btn></template><v-list><v-list-tile href=""><v-list-tile-title>Edit profile</v-list-tile-title></v-list-tile></v-list></v-menu></v-toolbar-items></v-toolbar>',
+            '<v-toolbar><v-toolbar-items class="hidden-sm-and-down"><v-btn flat href="" class="first">Home</v-btn><v-btn flat href="">Disclaimer</v-btn><v-menu><template slot="activator"><v-btn flat class="last">About Me <v-icon>arrow_drop_down</v-icon></v-btn></template><v-list><v-list-tile href=""><v-list-tile-title>Edit profile</v-list-tile-title></v-list-tile></v-list></v-menu></v-toolbar-items></v-toolbar>',
             $renderer->render($menu)
         );
     }
@@ -49,6 +50,41 @@ class ToolbarRendererTest extends TestCase
 
         $this->assertSame(
             '<v-toolbar :dense="true"><v-toolbar-items class="hidden-sm-and-down"><v-btn flat href="" class="first">Home</v-btn><v-btn flat href="">Disclaimer</v-btn><v-menu><template slot="activator"><v-btn flat class="last">About Me <v-icon>arrow_drop_down</v-icon></v-btn></template><v-list><v-list-tile href=""><v-list-tile-title>Edit profile</v-list-tile-title></v-list-tile></v-list></v-menu></v-toolbar-items></v-toolbar>',
+            $renderer->render($menu)
+        );
+    }
+
+    public function testRenderWithOneSpacer()
+    {
+        $renderer = new ToolbarRenderer($this->createMock(MatcherInterface::class), [], null, ['dense' => true]);
+
+        $menu = (new MenuFactory())->createItem('root');
+        $menu->addChild(new Spacer());
+        $menu->addChild('Home');
+        $menu->addChild('Disclaimer');
+        $menu->addChild('About Me');
+        $menu['About Me']->addChild('Edit profile');
+
+        $this->assertSame(
+            '<v-toolbar :dense="true"><v-spacer></v-spacer><v-toolbar-items class="hidden-sm-and-down"><v-btn flat href="">Home</v-btn><v-btn flat href="">Disclaimer</v-btn><v-menu><template slot="activator"><v-btn flat class="last">About Me <v-icon>arrow_drop_down</v-icon></v-btn></template><v-list><v-list-tile href=""><v-list-tile-title>Edit profile</v-list-tile-title></v-list-tile></v-list></v-menu></v-toolbar-items></v-toolbar>',
+            $renderer->render($menu)
+        );
+    }
+
+    public function testRenderWithMultipleSpacers()
+    {
+        $renderer = new ToolbarRenderer($this->createMock(MatcherInterface::class), [], null, ['dense' => true]);
+
+        $menu = (new MenuFactory())->createItem('root');
+        $menu->addChild(new Spacer());
+        $menu->addChild('Home');
+        $menu->addChild('Disclaimer');
+        $menu->addChild(new Spacer());
+        $menu->addChild('About Me');
+        $menu['About Me']->addChild('Edit profile');
+
+        $this->assertSame(
+            '<v-toolbar :dense="true"><v-spacer></v-spacer><v-toolbar-items class="hidden-sm-and-down"><v-btn flat href="">Home</v-btn><v-btn flat href="">Disclaimer</v-btn></v-toolbar-items><v-spacer></v-spacer><v-toolbar-items class="hidden-sm-and-down"><v-menu><template slot="activator"><v-btn flat class="last">About Me <v-icon>arrow_drop_down</v-icon></v-btn></template><v-list><v-list-tile href=""><v-list-tile-title>Edit profile</v-list-tile-title></v-list-tile></v-list></v-menu></v-toolbar-items></v-toolbar>',
             $renderer->render($menu)
         );
     }

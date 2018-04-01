@@ -17,7 +17,7 @@ final class SystembarRenderer extends BaseRenderer
 {
     protected function renderList(ItemInterface $item, array $attributes, array $options): string
     {
-        $html = '<v-system-bar '.$this->buildComponentConfig().'>';
+        $html = '<v-system-bar'.$this->buildComponentConfig().'>';
 
         foreach ($item->getChildren() as $child) {
             $html .= $this->renderIcon($child, $options, $attributes);
