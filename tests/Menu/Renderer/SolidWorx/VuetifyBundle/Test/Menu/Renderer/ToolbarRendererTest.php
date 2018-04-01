@@ -14,8 +14,10 @@ namespace SolidWorx\VuetifyBundle\Test\Menu\Renderer;
 use Knp\Menu\Matcher\MatcherInterface;
 use Knp\Menu\MenuFactory;
 use PHPUnit\Framework\TestCase;
+use SolidWorx\VuetifyBundle\Menu\MenuTranslator;
 use SolidWorx\VuetifyBundle\Menu\Renderer\ToolbarRenderer;
 use SolidWorx\VuetifyBundle\Menu\Spacer;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class ToolbarRendererTest extends TestCase
 {
@@ -98,6 +100,26 @@ class ToolbarRendererTest extends TestCase
 
         $this->assertSame(
             '<v-toolbar :dense="true"><v-toolbar-items class="hidden-sm-and-down"><v-btn flat href="" class="first last"><v-icon >home</v-icon> Home</v-btn></v-toolbar-items></v-toolbar>',
+            $renderer->render($menu)
+        );
+    }
+
+    public function testRenderWithTranslator()
+    {
+        $translator = $this->createMock(TranslatorInterface::class);
+        $renderer = new ToolbarRenderer($this->createMock(MatcherInterface::class), [], null, ['dense' => true]);
+        $renderer->setTranslator(new MenuTranslator($translator, 'menu', 'af_ZA'));
+
+        $translator->expects($this->once())
+            ->method('trans')
+            ->with('Home', [], 'menu', 'af_ZA')
+            ->willReturn('Huis');
+
+        $menu = (new MenuFactory())->createItem('root');
+        $menu->addChild('Home');
+
+        $this->assertSame(
+            '<v-toolbar :dense="true"><v-toolbar-items class="hidden-sm-and-down"><v-btn flat href="" class="first last">Huis</v-btn></v-toolbar-items></v-toolbar>',
             $renderer->render($menu)
         );
     }

@@ -115,6 +115,17 @@ class Configuration implements ConfigurationInterface
         }
 
         $node->children()
+            ->arrayNode('translate')
+                ->canBeEnabled()
+                ->children()
+                    ->scalarNode('locale')
+                        ->defaultNull()
+                    ->end()
+                    ->scalarNode('domain')
+                        ->defaultValue('messages')
+                    ->end()
+                ->end()
+            ->end()
             ->arrayNode('toolbar')
                 ->children()
                     ->booleanNode('absolute')

@@ -16,6 +16,7 @@ use Knp\Menu\Matcher\MatcherInterface;
 use Knp\Menu\Renderer\Renderer;
 use Knp\Menu\Renderer\RendererInterface;
 use SolidWorx\VuetifyBundle\Menu\Divider;
+use SolidWorx\VuetifyBundle\Menu\MenuTranslator;
 
 abstract class BaseRenderer extends Renderer implements RendererInterface
 {
@@ -24,6 +25,11 @@ abstract class BaseRenderer extends Renderer implements RendererInterface
     protected $defaultOptions = [];
 
     private $componentConfig = [];
+
+    /**
+     * @var MenuTranslator
+     */
+    private $translator;
 
     public function __construct(MatcherInterface $matcher, array $defaultOptions = [], ?string $charset = null, array $componentConfig = [])
     {
@@ -74,6 +80,11 @@ abstract class BaseRenderer extends Renderer implements RendererInterface
     }
 
     abstract protected function renderList(ItemInterface $item, array $attributes, array $options): string;
+
+    public function setTranslator(MenuTranslator $translator): void
+    {
+        $this->translator = $translator;
+    }
 
     protected function renderItem(ItemInterface $item, array $options): string
     {
@@ -185,12 +196,12 @@ abstract class BaseRenderer extends Renderer implements RendererInterface
         }
 
         if ($options['allow_safe_labels'] && $item->getExtra('safe_label', false)) {
-            $html .= $item->getLabel();
+            $html .= $this->translator ? $this->translator->trans($item->getLabel()) : $item->getLabel();
 
             return $html;
         }
 
-        $html .= $this->escape($item->getLabel());
+        $html .= $this->escape($this->translator ? $this->translator->trans($item->getLabel()) : $item->getLabel());
 
         return $html;
     }
