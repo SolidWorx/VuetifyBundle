@@ -19,10 +19,7 @@ use SolidWorx\VuetifyBundle\Menu\Renderer\ToolbarRenderer;
 class ToolbarRendererTest extends TestCase
 {
     /**
-     * @throws \InvalidArgumentException
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \ReflectionException
-     * @throws \Exception
+     * @throws \InvalidArgumentException|\PHPUnit\Framework\Exception|\ReflectionException|\Exception
      */
     public function testRender()
     {

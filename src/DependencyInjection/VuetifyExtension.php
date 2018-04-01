@@ -33,8 +33,14 @@ class VuetifyExtension extends Extension
 
         if ($config['menu']['enabled']) {
             $loader->load('menu.xml');
+
             if (isset($config['menu']['toolbar'])) {
                 $container->getDefinition('solid_worx_vuetify.menu_renderer.vuetify_toolbar_renderer')
+                    ->replaceArgument(3, $config['menu']['toolbar']);
+            }
+
+            if (isset($config['menu']['systembar'])) {
+                $container->getDefinition('solid_worx_vuetify.menu_renderer.vuetify_systembar_renderer')
                     ->replaceArgument(3, $config['menu']['toolbar']);
             }
         }

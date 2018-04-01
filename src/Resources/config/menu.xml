@@ -15,5 +15,13 @@
             <argument type="collection"></argument>
             <tag name="knp_menu.renderer" alias="vuetify_toolbar"></tag>
         </service>
+
+        <service class="SolidWorx\VuetifyBundle\Menu\Renderer\SystembarRenderer" id="solid_worx_vuetify.menu_renderer.vuetify_systembar_renderer">
+            <argument type="service" id="knp_menu.matcher" />
+            <argument>%knp_menu.renderer.list.options%</argument>
+            <argument>%kernel.charset%</argument>
+            <argument type="collection"></argument>
+            <tag name="knp_menu.renderer" alias="vuetify_systembar"></tag>
+        </service>
     </services>
 </container>
