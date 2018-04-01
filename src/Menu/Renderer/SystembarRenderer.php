@@ -20,7 +20,7 @@ final class SystembarRenderer extends BaseRenderer
         $html = '<v-system-bar'.$this->buildComponentConfig().'>';
 
         foreach ($item->getChildren() as $child) {
-            $html .= $this->renderIcon($child, $options, $attributes);
+            $html .= $this->renderIcon($child->getName(), $attributes);
         }
 
         $html .= '</v-system-bar>';

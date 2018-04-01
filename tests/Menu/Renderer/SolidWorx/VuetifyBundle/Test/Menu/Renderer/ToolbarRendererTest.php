@@ -88,4 +88,17 @@ class ToolbarRendererTest extends TestCase
             $renderer->render($menu)
         );
     }
+
+    public function testRenderWithIcon()
+    {
+        $renderer = new ToolbarRenderer($this->createMock(MatcherInterface::class), [], null, ['dense' => true]);
+
+        $menu = (new MenuFactory())->createItem('root');
+        $menu->addChild('Home', ['extras' => ['icon' => 'home']]);
+
+        $this->assertSame(
+            '<v-toolbar :dense="true"><v-toolbar-items class="hidden-sm-and-down"><v-btn flat href="" class="first last"><v-icon >home</v-icon> Home</v-btn></v-toolbar-items></v-toolbar>',
+            $renderer->render($menu)
+        );
+    }
 }

@@ -16,7 +16,6 @@ use Knp\Menu\Matcher\MatcherInterface;
 use Knp\Menu\Renderer\Renderer;
 use Knp\Menu\Renderer\RendererInterface;
 use SolidWorx\VuetifyBundle\Menu\Divider;
-use SolidWorx\VuetifyBundle\Menu\Spacer;
 
 abstract class BaseRenderer extends Renderer implements RendererInterface
 {
@@ -172,18 +171,28 @@ abstract class BaseRenderer extends Renderer implements RendererInterface
         return sprintf('<v-btn flat%s>%s <v-icon>arrow_drop_down</v-icon></v-btn>', $this->renderHtmlAttributes(array_merge($attributes, $item->getLinkAttributes())), $this->renderLabel($item, $options));
     }
 
-    protected function renderIcon(ItemInterface $item, array $options, array $attributes): string
+    protected function renderIcon(string $icon, array $attributes = []): string
     {
-        return sprintf('<v-icon %s>%s</v-icon>', $this->renderHtmlAttributes(array_merge($attributes, $item->getLinkAttributes())), $this->renderLabel($item, $options));
+        return sprintf('<v-icon %s>%s</v-icon>', $this->renderHtmlAttributes($attributes), strtolower($icon));
     }
 
     protected function renderLabel(ItemInterface $item, array $options): string
     {
-        if ($options['allow_safe_labels'] && $item->getExtra('safe_label', false)) {
-            return $item->getLabel();
+        $html = '';
+
+        if ($icon = $item->getExtra('icon')) {
+            $html .= $this->renderIcon($icon, $item->getAttributes()).' ';
         }
 
-        return $this->escape($item->getLabel());
+        if ($options['allow_safe_labels'] && $item->getExtra('safe_label', false)) {
+            $html .= $item->getLabel();
+
+            return $html;
+        }
+
+        $html .= $this->escape($item->getLabel());
+
+        return $html;
     }
 
     private function clearMatcher(array $options): void
