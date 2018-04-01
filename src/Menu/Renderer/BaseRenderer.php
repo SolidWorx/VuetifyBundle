@@ -121,7 +121,7 @@ abstract class BaseRenderer extends Renderer implements RendererInterface
             $html .= '<v-list>';
 
             foreach ($item->getChildren() as $child) {
-                $html .= '<v-list-tile href="'.$item->getUri().'"><v-list-tile-title>';
+                $html .= '<v-list-tile href="'.$child->getUri().'"><v-list-tile-title>';
 
                 $html .= $this->renderLabel($child, $options);
 
