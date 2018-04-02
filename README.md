@@ -50,7 +50,7 @@ VuetifyBundle comes with a [Symfony form theme](https://symfony.com/doc/current/
 ```yaml
 twig:
     form_themes:
-        - '@SolidWorxVuetifyBundle/templates/form/fields.html.twig'
+        - '@SolidWorxVuetify/Form/fields.html.twig'
 ```
 
 #### Radio Switches
