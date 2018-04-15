@@ -1,5 +1,19 @@
 {% use "form_div_layout.html.twig" %}
 
+
+{%- block form_start -%}
+    <v-form>
+
+   {{ parent() }}
+{%- endblock form_start -%}
+
+
+{%- block form_end -%}
+    {{ parent() }}
+
+    </v-form>
+{%- endblock form_end -%}
+
 {%- block form_row -%}
     {{- form_widget(form) -}}
 {%- endblock form_row -%}
@@ -73,8 +87,8 @@
         {%- endif -%}
     {%- endif -%}
 
-    <v-select {{ block('widget_attributes') }}{% if multiple %} multiple{% endif %} label="{{ label }}"
-            {%- set options = choices %}
+    <v-select {{ block('widget_attributes') }}{% if multiple %} multiple{% endif %} label="{{ label }}" value="{{ value }}"
+        {%- set options = choices %}
         {{- block('choice_widget_options')|raw -}}
     >
         </v-select>
