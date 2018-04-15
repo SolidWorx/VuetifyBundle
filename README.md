@@ -4,7 +4,7 @@ VuetifyBundle
 VuetifyBundle adds support for various [VuetifyJS](https://vuetifyjs.com) components in Symfony
 
 **Note:** This bundle does NOT add the VuetifyJS library to your project. Vuetify should already be included in your project, and a basic Vue instance should be instantiated.
-See the [quick start guide](https://vuetifyjs.com/en/getting-started/quick-start) of Vuetify to get started.
+See the [quick start guide](https://vuetifyjs.com/en/getting-started/quick-start) of Vuetify to get started, or follow the [Adding Vuetify](#adding-vuetify) instructions.
 
 Installation
 ------------
@@ -39,6 +39,26 @@ class AppKernel extends Kernel
 If you are using Symfony 4 with Flex, then the bundle should automatically be registered.
 
 The bundle can be configured in your app/config.yml file. See the [Configuration Reference](#configuration) for possible configuration values.
+
+### Adding Vuetify
+
+If you do not already have Vuetify installed in your application, then you can follow the these instructions:
+
+```bash
+// Using yarn
+$ yarn add vuetify
+
+// Using NPM
+npm install vuetify --save
+```
+
+Register Vuetify inside your main application entrypoint:
+
+```js
+import Vuetify from 'vuetify';
+
+Vue.use(Vuetify);
+```
 
 Usage
 -----
