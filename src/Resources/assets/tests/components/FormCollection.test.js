@@ -138,7 +138,7 @@ describe('Form Collection', () => {
             });
     });
 
-    it('can remove an item', () => {
+    it('can delete an item', () => {
         let vm = mount({
             template: '<form-collection><template slot="prototype" slot-scope="props"><div :class="\'index-\' + props.index">{{ props.index }}</div></template><template slot="deleteButton" slot-scope="props"><button>Delete</button></template><template slot="addButton"><span class="add">Add</span></template></form-collection>',
             components: {
@@ -155,7 +155,7 @@ describe('Form Collection', () => {
             });
     });
 
-    it('can re-indexes the items when one is removed', () => {
+    it('can re-indexes the items when one is deletet', () => {
         let vm = mount({
             template: '<form-collection><template slot="prototype" slot-scope="props"><div :class="\'index-\' + props.index">{{ props.index }}</div></template><template slot="deleteButton" slot-scope="props"><button>Delete</button></template><template slot="addButton"><span class="add">Add</span></template></form-collection>',
             components: {
@@ -176,9 +176,9 @@ describe('Form Collection', () => {
             });
     });
 
-    it('can manually remove an item from the prototype slot', () => {
+    it('can manually delete an item from the prototype slot', () => {
         let vm = mount({
-            template: '<form-collection><template slot="prototype" slot-scope="props">{{ props.index }}<div :class="\'index-\' + props.index" @click="props.$bus.$emit(\'removeItem\', props.index)">Remove</div></template><template slot="addButton"><span class="add">Add</span></template></form-collection>',
+            template: '<form-collection><template slot="prototype" slot-scope="props">{{ props.index }}<div :class="\'index-\' + props.index" @click="props.$bus.$emit(\'deleteItem\', props.index)">Delete</div></template><template slot="addButton"><span class="add">Add</span></template></form-collection>',
             components: {
                 FormCollection
             }
@@ -191,7 +191,7 @@ describe('Form Collection', () => {
 
         return Vue.nextTick()
             .then(function() {
-                expect(vm.html()).toBe('<span><span>0<div class="index-0">Remove</div></span><span>1<div class="index-1">Remove</div></span><span><span class="add">Add</span></span></span>');
+                expect(vm.html()).toBe('<span><span>0<div class="index-0">Delete</div></span><span>1<div class="index-1">Delete</div></span><span><span class="add">Add</span></span></span>');
             });
     });
 

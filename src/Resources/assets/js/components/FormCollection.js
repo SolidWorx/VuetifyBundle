@@ -34,19 +34,19 @@ export default {
         addItem() {
             this.items.push(++this.index);
         },
-        removeItem(index) {
+        deleteItem(index) {
             this.items.splice(index, 1);
         }
     },
     created: function() {
         const vm = this;
         this.$on('addItem', this.addItem);
-        this.$on('removeItem', function(index) {
+        this.$on('deleteItem', function(index) {
             if (isUndefined(index) || !isNumber(index)) {
-                throw new Error('Index must be set and a valid number when calling "removeItem"');
+                throw new Error('Index must be set and a valid number when calling "deleteItem"');
             }
 
-            vm.removeItem(index);
+            vm.deleteItem(index);
         });
 
         if (0 === this.currentItems.length) {
@@ -79,7 +79,7 @@ export default {
             }
 
             if (allowDelete) {
-                children.push(h('span', {on: {click: () => this.removeItem(index)}}, this.$scopedSlots.deleteButton({index, length, $bus})));
+                children.push(h('span', {on: {click: () => this.deleteItem(index)}}, this.$scopedSlots.deleteButton({index, length, $bus})));
             }
 
             nodes.push(h('span', {key: key}, children));
