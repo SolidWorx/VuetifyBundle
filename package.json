@@ -1,0 +1,65 @@
+{
+    "name": "@solidworx/vuetify-bundle",
+    "version": "0.0.1",
+    "author": {
+        "name": "Pierre du Plessis",
+        "email": "open-source@solidworx.co",
+        "url": "https://solidworx.co"
+    },
+    "license": "MIT",
+    "repository": "solidworx/vuetify-bundle",
+    "description": "Frontend resources for SolidWorx VuetifyBundle",
+    "main": "src/Resources/assets/dist/vuetify-bundle.min.js",
+    "unpkg": "src/Resources/assets/dist/vuetify-bundle.min.js",
+    "scripts": {
+        "build:dist": "NODE_ENV=production webpack --config src/Resources/assets/build/config.js --progress --hide-modules",
+        "lint": "eslint --ext .js,.vue src/Resources/assets/js",
+        "test:unit": "karma start"
+    },
+    "peerDependencies": {
+        "vue": "^2.5.0",
+        "vuetify": "^1.0.14"
+    },
+    "engines": {
+        "node": ">= 4.0.0",
+        "npm": ">= 3.0.0"
+    },
+    "devDependencies": {
+        "@vue/test-utils": "^1.0.0-beta.14",
+        "babel-core": "^6.26.0",
+        "babel-eslint": "^8.2.3",
+        "babel-loader": "^7.1.4",
+        "babel-plugin-add-filehash": "^6.9.8",
+        "babel-plugin-lodash": "^3.3.2",
+        "babel-plugin-module-resolver": "^3.1.1",
+        "babel-preset-env": "^1.6.1",
+        "babel-preset-es2015": "^6.24.1",
+        "babel-preset-stage-2": "^6.24.1",
+        "eslint": "^4.19.1",
+        "eslint-config-standard": "^11.0.0",
+        "eslint-loader": "^2.0.0",
+        "eslint-plugin-import": "^2.11.0",
+        "eslint-plugin-node": "^6.0.1",
+        "eslint-plugin-promise": "^3.7.0",
+        "eslint-plugin-standard": "^3.0.1",
+        "friendly-errors-webpack-plugin": "^1.7.0",
+        "jasmine": "^3.1.0",
+        "karma": "^2.0.0",
+        "karma-chrome-launcher": "^2.2.0",
+        "karma-firefox-launcher": "^1.1.0",
+        "karma-jasmine": "^1.1.1",
+        "karma-mocha-reporter": "^2.2.5",
+        "karma-safari-launcher": "^1.0.0",
+        "karma-sourcemap-loader": "^0.3.7",
+        "karma-webpack": "^3.0.0",
+        "optimize-js-plugin": "^0.0.4",
+        "vue": "^2.5.16",
+        "vue-template-compiler": "^2.5.16",
+        "vue-test-utils": "https://github.com/vuejs/vue-test-utils",
+        "webpack": "^3.10.0",
+        "webpack-merge": "^4.1.2"
+    },
+    "dependencies": {
+        "lodash-es": "^4.17.8"
+    }
+}

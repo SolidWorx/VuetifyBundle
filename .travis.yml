@@ -1,5 +1,3 @@
-language: php
-
 sudo: false
 
 env:
@@ -11,25 +9,63 @@ matrix:
     - php: 7.2
       env:
         - COMPOSER_OPTIONS="--prefer-lowest"
+      cache:
+        directories:
+          - $HOME/.composer/cache/files
+
+      before_install:
+        - composer self-update
+
+      install:
+        - composer update -n "$COMPOSER_OPTIONS"
+
+      script:
+        - vendor/bin/phpunit
     - php: 7.2
+
       env:
         - COMPOSER_OPTIONS="--prefer-stable"
+
+      cache:
+        directories:
+          - $HOME/.composer/cache/files
+
+      before_install:
+        - composer self-update
+
+      install:
+        - composer update -n "$COMPOSER_OPTIONS"
+
+      script:
+        - vendor/bin/phpunit
+
     - php: nightly
+
+      cache:
+        directories:
+          - $HOME/.composer/cache/files
+
+      before_install:
+        - composer self-update
+
+      install:
+        - composer update -n "$COMPOSER_OPTIONS"
+
+      script:
+        - vendor/bin/phpunit
+
+    - node: 8
+
+      cache: yarn
+
+      install:
+        - yarn
+
+      script:
+        - yarn run test:unit
+
   allow_failures:
     - php: nightly
-
-cache:
-  directories:
-    - $HOME/.composer/cache/files
-
-before_install:
-  - composer self-update
-
-install:
-  - composer update -n "$COMPOSER_OPTIONS"
-
-script:
-    - vendor/bin/phpunit
 
 
 
