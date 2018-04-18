@@ -9,8 +9,8 @@
     "license": "MIT",
     "repository": "solidworx/vuetify-bundle",
     "description": "Frontend resources for SolidWorx VuetifyBundle",
-    "main": "src/Resources/assets/dist/vuetify-bundle.min.js",
-    "unpkg": "src/Resources/assets/dist/vuetify-bundle.min.js",
+    "main": "src/Resources/public/js/vuetify-bundle.min.js",
+    "unpkg": "src/Resources/public/js/vuetify-bundle.min.js",
     "scripts": {
         "build:dist": "NODE_ENV=production webpack --config src/Resources/assets/build/config.js --progress --hide-modules",
         "lint": "eslint --ext .js,.vue src/Resources/assets/js",

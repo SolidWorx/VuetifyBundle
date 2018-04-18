@@ -67,7 +67,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/dist/";
+/******/ 	__webpack_require__.p = "/js/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 3);
@@ -233,14 +233,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
-        addRow: function addRow() {
+        addItem: function addItem() {
             this.items.push(++this.index);
         },
-        removeRow: function removeRow(index) {
+        deleteItem: function deleteItem(index) {
             this.items.splice(index, 1);
         }
     },
-    mounted: function mounted() {
+    created: function created() {
+        var vm = this;
+        this.$on('addItem', this.addItem);
+        this.$on('deleteItem', function (index) {
+            if (Object(__WEBPACK_IMPORTED_MODULE_1_lodash_es_isUndefined__["a" /* default */])(index) || !Object(__WEBPACK_IMPORTED_MODULE_3_lodash_es_isNumber__["a" /* default */])(index)) {
+                throw new Error('Index must be set and a valid number when calling "deleteItem"');
+            }
+
+            vm.deleteItem(index);
+        });
+
         if (0 === this.currentItems.length) {
             this.items.push(0);
         } else {
@@ -272,17 +282,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.index = this.items.length;
         }
     },
-    created: function created() {
-        var vm = this;
-        this.$on('addRow', this.addRow);
-        this.$on('removeRow', function (index) {
-            if (Object(__WEBPACK_IMPORTED_MODULE_1_lodash_es_isUndefined__["a" /* default */])(index) || !Object(__WEBPACK_IMPORTED_MODULE_3_lodash_es_isNumber__["a" /* default */])(index)) {
-                throw new Error('Index must be set and a valid number when calling "deleteRow"');
-            }
-
-            vm.removeRow(index);
-        });
-    },
     render: function render(h) {
         var _this = this;
 
@@ -306,7 +305,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (allowDelete) {
                 children.push(h('span', { on: { click: function click() {
-                            return _this.removeRow(index);
+                            return _this.deleteItem(index);
                         } } }, _this.$scopedSlots.deleteButton({ index: index, length: _length, $bus: $bus })));
             }
 
@@ -327,7 +326,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             if (addBtn) {
-                nodes.push(h('span', { on: { click: this.addRow } }, addBtn));
+                nodes.push(h('span', { on: { click: this.addItem } }, addBtn));
             }
         }
 

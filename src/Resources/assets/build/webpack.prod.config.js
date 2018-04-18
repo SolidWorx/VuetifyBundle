@@ -9,8 +9,8 @@ module.exports = merge(baseWebpackConfig, {
         app: './src/Resources/assets/js/index.js'
     },
     output: {
-        path: resolve('../dist'),
-        publicPath: '/dist/',
+        path: resolve('../public/js'),
+        publicPath: '/js/',
         library: 'VuetifyBundle',
         libraryTarget: 'umd',
         libraryExport: 'default'
