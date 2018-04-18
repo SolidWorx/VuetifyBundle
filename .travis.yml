@@ -40,8 +40,6 @@ matrix:
       language: node_js
       cache: yarn
       install: yarn
-      addons:
-        sauce_connect: true
       script: yarn run test:sauce
 
   allow_failures:
