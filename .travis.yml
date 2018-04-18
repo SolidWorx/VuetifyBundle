@@ -1,12 +1,10 @@
 sudo: false
 
-env:
-    - COMPOSER_OPTIONS="
-
 matrix:
   fast_finish: true
   include:
     - php: 7.2
+      language: php
       env:
         - COMPOSER_OPTIONS="--prefer-lowest"
       cache:
@@ -22,7 +20,7 @@ matrix:
       script:
         - vendor/bin/phpunit
     - php: 7.2
-
+      language: php
       env:
         - COMPOSER_OPTIONS="--prefer-stable"
 
@@ -40,7 +38,7 @@ matrix:
         - vendor/bin/phpunit
 
     - php: nightly
-
+      language: php
       cache:
         directories:
           - $HOME/.composer/cache/files
@@ -55,7 +53,7 @@ matrix:
         - vendor/bin/phpunit
 
     - node_js: 8
-
+      language: node_js
       cache: yarn
 
       install:
