@@ -41,10 +41,7 @@ matrix:
       cache: yarn
       install: yarn
       addons:
-        sauce_connect:
-          username: "csbill"
-        jwt:
-          secure: "L8WIABypqtD/5/jrqL80wtEcMbNw4R3dh+Z5Xpe/iTAw+dYiIm8GmTorDAIAFNQl7LOSRfHzs/Hmis4yvvnuhqM9jAWWxhLyIZLmx2o7lhY85y/QysX+tpUqlaenCIiYk9hctPrT4YM6iY95jfLZAU4kkDpM7SZ+cpWTLBh0gIHpY+HS1Yy4JGQ+YiMWp6Mh1UmJLY+jFd9CQFb1qpyxBR5BcpuWfkfrJzkFMoDXsMMcFWnxATtApoTe6+qfOXSR/EQFF5MmyzFjJoJoNiZEhJ+5wVXobhK8aAY4WlkekpsXMH3tEmHsF8FmcVnY9FtlqhpdljOUdxANmVHWVFKcRIAkthgYGdM3/dHKMIXOLUWh2OHSEAPTPJv1vMYdn2SixpAubCr4Pb9hX4BCKn59zvvjoRVtAGk2CD7LwrJKpfC8BILItRhJ+5X6bAw1q+0kvAG2dk7VNj6ctwox+ROHm5xyCuoXzOPMNBnYrYIz7aBWNWC2E7GVaNp8/sdZQehTBx1Jogn/U/Zmxgcujt/BVvKMycjXjV8Z4GR6koqV9N8lJl8phMp/Ev9zSL8njVGbl+h8/cKCnFBTa9nmR2kEWDLQzoCAQePNlF3hMuaeQtWhxIMZZmY3bBqfKI5DcYDe8OmKz9ZXowdsNTu0q3j2+YB5c/JFIBB8NW6QkF1xDpQ="
+        sauce_connect: true
       script: yarn run test:sauce
 
   allow_failures:
