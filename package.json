@@ -14,7 +14,8 @@
     "scripts": {
         "build:dist": "NODE_ENV=production webpack --config src/Resources/assets/build/config.js --progress --hide-modules",
         "lint": "eslint --ext .js,.vue src/Resources/assets/js",
-        "test:unit": "karma start"
+        "test:unit": "karma start src/Resources/assets/tests/karma.unit.conf.js",
+        "test:sauce": "karma start src/Resources/assets/tests/karma.sauce.conf.js"
     },
     "peerDependencies": {
         "vue": "^2.5.0",
@@ -50,6 +51,7 @@
         "karma-jasmine": "^1.1.1",
         "karma-mocha-reporter": "^2.2.5",
         "karma-safari-launcher": "^1.0.0",
+        "karma-sauce-launcher": "^1.2.0",
         "karma-sourcemap-loader": "^0.3.7",
         "karma-webpack": "^3.0.0",
         "optimize-js-plugin": "^0.0.4",

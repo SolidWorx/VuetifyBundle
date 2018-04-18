@@ -1,4 +1,5 @@
 import {mount} from '@vue/test-utils'
+import Vue from 'vue'
 import FormCollection from '@/components/FormCollection'
 
 describe('Form Collection', () => {
@@ -8,9 +9,12 @@ describe('Form Collection', () => {
             components: {
                 FormCollection
             }
-        });
+        }, {attachToDocument: true});
 
-        expect(vm.html()).toBe('<span><span><div>0</div></span></span>');
+        return Vue.nextTick()
+            .then(function() {
+                expect(vm.html()).toBe('<span><span><div>0</div></span></span>');
+            });
     });
 
     it('renders an add button', () => {
@@ -19,9 +23,12 @@ describe('Form Collection', () => {
             components: {
                 FormCollection
             }
-        });
+        }, {attachToDocument: true});
 
-        expect(vm.html()).toBe('<span><span></span><span><button>Add</button></span></span>');
+        return Vue.nextTick()
+            .then(function() {
+                expect(vm.html()).toBe('<span><span></span><span><button>Add</button></span></span>');
+            });
     });
 
     it('doesn\'t render an add button if allowAdd is false', () => {
@@ -30,9 +37,12 @@ describe('Form Collection', () => {
             components: {
                 FormCollection
             }
-        });
+        }, {attachToDocument: true});
 
-        expect(vm.html()).toBe('<span><span></span></span>');
+        return Vue.nextTick()
+            .then(function() {
+                expect(vm.html()).toBe('<span><span></span></span>');
+            });
     });
 
     it('doesn\'t render an add button if allowAdd is false', () => {
@@ -41,9 +51,12 @@ describe('Form Collection', () => {
             components: {
                 FormCollection
             }
-        });
+        }, {attachToDocument: true});
 
-        expect(vm.html()).toBe('<span><span></span></span>');
+        return Vue.nextTick()
+            .then(function() {
+                expect(vm.html()).toBe('<span><span></span></span>');
+            });
     });
 
     it('can add a new item in the list', () => {
@@ -52,11 +65,13 @@ describe('Form Collection', () => {
             components: {
                 FormCollection
             }
-        });
+        }, {attachToDocument: true});
 
         vm.find('.add').trigger('click');
-
-        expect(vm.html()).toBe('<span><span><div>0</div></span><span><div>1</div></span><span><span class="add">Add</span></span></span>');
+        return Vue.nextTick()
+            .then(function() {
+                expect(vm.html()).toBe('<span><span><div>0</div></span><span><div>1</div></span><span><span class="add">Add</span></span></span>');
+            });
     });
 
     it('can add multiple new items in the list', () => {
@@ -65,13 +80,16 @@ describe('Form Collection', () => {
             components: {
                 FormCollection
             }
-        });
+        }, {attachToDocument: true});
 
         vm.find('.add').trigger('click');
         vm.find('.add').trigger('click');
         vm.find('.add').trigger('click');
 
-        expect(vm.html()).toBe('<span><span><div>0</div></span><span><div>1</div></span><span><div>2</div></span><span><div>3</div></span><span><span class="add">Add</span></span></span>');
+        return Vue.nextTick()
+            .then(function() {
+                expect(vm.html()).toBe('<span><span><div>0</div></span><span><div>1</div></span><span><div>2</div></span><span><div>3</div></span><span><span class="add">Add</span></span></span>');
+            });
     });
 
     it('doesn\'t render a delete button with only 1 item', () => {
@@ -80,9 +98,12 @@ describe('Form Collection', () => {
             components: {
                 FormCollection
             }
-        });
+        }, {attachToDocument: true});
 
-        expect(vm.html()).toBe('<span><span><div>0</div></span></span>');
+        return Vue.nextTick()
+            .then(function() {
+                expect(vm.html()).toBe('<span><span><div>0</div></span></span>');
+            });
     });
 
     it('renders a delete button with more than 1 item', () => {
@@ -91,11 +112,14 @@ describe('Form Collection', () => {
             components: {
                 FormCollection
             }
-        });
+        }, {attachToDocument: true});
 
         vm.find('.add').trigger('click');
 
-        expect(vm.html()).toBe('<span><span><div>0</div><span><button>Delete</button></span></span><span><div>1</div><span><button>Delete</button></span></span><span><span class="add">Add</span></span></span>');
+        return Vue.nextTick()
+            .then(function() {
+                expect(vm.html()).toBe('<span><span><div>0</div><span><button>Delete</button></span></span><span><div>1</div><span><button>Delete</button></span></span><span><span class="add">Add</span></span></span>');
+            });
     });
 
     it('doesn\'t render a delete button with min items set', () => {
@@ -104,11 +128,14 @@ describe('Form Collection', () => {
             components: {
                 FormCollection
             }
-        });
+        }, {attachToDocument: true});
 
         vm.find('.add').trigger('click');
 
-        expect(vm.html()).toBe('<span><span><div>0</div></span><span><div>1</div></span><span><span class="add">Add</span></span></span>');
+        return Vue.nextTick()
+            .then(function() {
+                expect(vm.html()).toBe('<span><span><div>0</div></span><span><div>1</div></span><span><span class="add">Add</span></span></span>');
+            });
     });
 
     it('can remove an item', () => {
@@ -117,12 +144,15 @@ describe('Form Collection', () => {
             components: {
                 FormCollection
             }
-        });
+        }, {attachToDocument: true});
 
         vm.find('.add').trigger('click');
         vm.find('.index-1 ~ span').trigger('click');
 
-        expect(vm.html()).toBe('<span><span><div class="index-0">0</div></span><span><span class="add">Add</span></span></span>');
+        return Vue.nextTick()
+            .then(function() {
+                expect(vm.html()).toBe('<span><span><div class="index-0">0</div></span><span><span class="add">Add</span></span></span>');
+            });
     });
 
     it('can re-indexes the items when one is removed', () => {
@@ -131,18 +161,19 @@ describe('Form Collection', () => {
             components: {
                 FormCollection
             }
-        });
+        }, {attachToDocument: true});
 
         vm.find('.add').trigger('click');
         vm.find('.add').trigger('click');
         vm.find('.add').trigger('click');
         vm.find('.add').trigger('click');
-
-        expect(vm.html()).toBe('<span><span><div class="index-0">0</div><span><button>Delete</button></span></span><span><div class="index-1">1</div><span><button>Delete</button></span></span><span><div class="index-2">2</div><span><button>Delete</button></span></span><span><div class="index-3">3</div><span><button>Delete</button></span></span><span><div class="index-4">4</div><span><button>Delete</button></span></span><span><span class="add">Add</span></span></span>');
 
         vm.find('.index-2 ~ span').trigger('click');
 
-        expect(vm.html()).toBe('<span><span><div class="index-0">0</div><span><button>Delete</button></span></span><span><div class="index-1">1</div><span><button>Delete</button></span></span><span><div class="index-2">2</div><span><button>Delete</button></span></span><span><div class="index-3">3</div><span><button>Delete</button></span></span><span><span class="add">Add</span></span></span>');
+        return Vue.nextTick()
+            .then(function() {
+                expect(vm.html()).toBe('<span><span><div class="index-0">0</div><span><button>Delete</button></span></span><span><div class="index-1">1</div><span><button>Delete</button></span></span><span><div class="index-2">2</div><span><button>Delete</button></span></span><span><div class="index-3">3</div><span><button>Delete</button></span></span><span><span class="add">Add</span></span></span>');
+            });
     });
 
     it('can manually remove an item from the prototype slot', () => {
@@ -151,16 +182,17 @@ describe('Form Collection', () => {
             components: {
                 FormCollection
             }
-        });
+        }, {attachToDocument: true});
 
         vm.find('.add').trigger('click');
         vm.find('.add').trigger('click');
-
-        expect(vm.html()).toBe('<span><span>0<div class="index-0">Remove</div></span><span>1<div class="index-1">Remove</div></span><span>2<div class="index-2">Remove</div></span><span><span class="add">Add</span></span></span>');
 
         vm.find('.index-1').trigger('click');
 
-        expect(vm.html()).toBe('<span><span>0<div class="index-0">Remove</div></span><span>1<div class="index-1">Remove</div></span><span><span class="add">Add</span></span></span>');
+        return Vue.nextTick()
+            .then(function() {
+                expect(vm.html()).toBe('<span><span>0<div class="index-0">Remove</div></span><span>1<div class="index-1">Remove</div></span><span><span class="add">Add</span></span></span>');
+            });
     });
 
     it('can manually add an item in the prototype slot', () => {
@@ -169,12 +201,13 @@ describe('Form Collection', () => {
             components: {
                 FormCollection
             }
-        });
-
-        expect(vm.html()).toBe('<span><span>0<div class="index-0">Add</div></span></span>');
+        }, {attachToDocument: true});
 
         vm.find('.index-0').trigger('click');
 
-        expect(vm.html()).toBe('<span><span>0<div class="index-0">Add</div></span><span>1<div class="index-1">Add</div></span></span>');
+        return Vue.nextTick()
+            .then(function() {
+                expect(vm.html()).toBe('<span><span>0<div class="index-0">Add</div></span><span>1<div class="index-1">Add</div></span></span>');
+            });
     });
 });
