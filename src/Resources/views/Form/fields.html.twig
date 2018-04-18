@@ -42,6 +42,33 @@
     {%- endif -%}
 {%- endblock form_widget_simple -%}
 
+{% block widget_attributes -%}
+    :id="'{{ id }}'" :name="'{{ full_name }}'"
+    {{ block('attributes') }}
+{%- endblock widget_attributes %}
+
+{%- block collection_widget -%}
+    <form-collection {{ allow_delete ? 'allow_delete' : ':allow_delete="false"' }} {{ allow_add ? 'allow_add' : ':allow_add="false"' }}>
+        {% if form|length > 0 %}
+            {% for item in form %}
+                <template slot="items">
+                    <span>
+                        {{- form_row(item) -}}
+                    </span>
+                </template>
+            {% endfor %}
+        {% endif %}
+
+        {% if prototype is defined %}
+            <template slot="prototype" slot-scope="props">
+                {{- form_row(prototype)|replace({
+                    (prototype.vars.name): "' + props.index + '"
+                })|raw -}}
+            </template>
+        {% endif %}
+    </form-collection>
+{%- endblock collection_widget -%}
+
 {%- block choice_widget_expanded -%}
     <div {{ block('widget_container_attributes') }}>
         {{- form_label(form) -}}
