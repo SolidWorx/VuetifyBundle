@@ -40,7 +40,9 @@ matrix:
       language: node_js
       cache: yarn
       install: yarn
-      script: yarn run test:sauce
+      script:
+        - yarn run lint
+        - yarn run test:sauce
 
   allow_failures:
     - php: nightly
