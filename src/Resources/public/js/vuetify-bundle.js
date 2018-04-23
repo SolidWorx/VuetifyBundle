@@ -170,11 +170,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components__ = __webpack_require__(4);
 
 
-/* harmony default export */ __webpack_exports__["default"] = (function (Vue, args) {
+function VuetifyBundle(Vue, args) {
     Object.values(__WEBPACK_IMPORTED_MODULE_0__components__).forEach(function (component) {
         Vue.component(component.name, component);
     });
-});
+}
+
+if (typeof window !== 'undefined' && window.Vue) {
+    window.Vue.use(VuetifyBundle);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (VuetifyBundle);
 
 /***/ }),
 /* 4 */
