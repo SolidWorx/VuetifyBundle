@@ -60,6 +60,30 @@ import Vuetify from 'vuetify';
 Vue.use(Vuetify);
 ```
 
+### Adding the VuetifyBundle Assets
+
+This bundle comes with assets that provide some additional functionality.
+
+#### Including as a script
+
+To include the compiled JS on your page, you can add the following to your templates:
+
+```twig
+<script src="{{ asset('bundles/solidworxvuetify/js/vuetify-bundle.min.js') }}">
+```
+
+**Note:** Remember to run the `bin/console assets:install` command
+
+#### Using webpack
+
+If you use webpack (or webpack-encore) you can import the module directly
+
+```js
+import VuetifyBundle from 'vendor/solidworx/vuetify-bundle/src/Resources/assets/js';
+
+Vue.use(VuetifyBundle);
+```
+
 Usage
 -----
 
@@ -121,6 +145,10 @@ class MyFormType extends AbstractType
     }
 }
 ```
+
+#### Form Collection
+
+The JS comes with a `form-collection` component that will allow you to add multiple items when using [Symfony's Form Collection](https://symfony.com/doc/current/reference/forms/types/collection.html)
 
 ### Alert
 

@@ -1,38 +1,48 @@
-language: php
-
 sudo: false
-
-env:
-    - COMPOSER_OPTIONS="
 
 matrix:
   fast_finish: true
   include:
+    - php: 7.1
+      language: php
+      cache:
+        directories:
+          - $HOME/.composer/cache/files
+      install: composer update
+
     - php: 7.2
+      language: php
       env:
         - COMPOSER_OPTIONS="--prefer-lowest"
+      cache:
+        directories:
+          - $HOME/.composer/cache/files
+      install: composer update -n "$COMPOSER_OPTIONS"
+
     - php: 7.2
+      language: php
       env:
         - COMPOSER_OPTIONS="--prefer-stable"
+      cache:
+        directories:
+          - $HOME/.composer/cache/files
+      install:
+        - composer update -n "$COMPOSER_OPTIONS"
+
     - php: nightly
+      language: php
+      cache:
+        directories:
+          - $HOME/.composer/cache/files
+      install: composer update -n "$COMPOSER_OPTIONS"
+
+    - node_js: 8
+      language: node_js
+      cache: yarn
+      install: yarn
+      script:
+        - yarn run lint
+        - yarn run test:sauce
+
   allow_failures:
     - php: nightly
-
-cache:
-  directories:
-    - $HOME/.composer/cache/files
-
-before_install:
-  - composer self-update
-
-install:
-  - composer update -n "$COMPOSER_OPTIONS"
-
-script:
-    - vendor/bin/phpunit
-
-
-
-
-
-

@@ -25,6 +25,6 @@
         "symfony/translation": "^4.0"
     },
     "suggest": {
-        "knplabs/knp-menu-bundle": "For manu rendering integration"
+        "knplabs/knp-menu-bundle": "For menu rendering integration"
     }
 }
