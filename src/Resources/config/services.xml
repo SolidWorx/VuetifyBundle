@@ -5,18 +5,18 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <defaults autowire="true" autoconfigure="true">
+        <defaults autowire="true" autoconfigure="true" public="false">
         </defaults>
 
         <prototype namespace="SolidWorx\VuetifyBundle\" resource="../../**/*">
         </prototype>
 
         <service id="SolidWorx\VuetifyBundle\Form\Extension\DateTypeExtension">
-            <tag name="form.type_extension" extended-type="Symfony\Component\Form\Extension\Core\Type\DateType"></tag>
+            <tag name="form.type_extension" extended-type="Symfony\Component\Form\Extension\Core\Type\DateType"/>
         </service>
 
         <service id="SolidWorx\VuetifyBundle\Form\Extension\RadioTypeExtension">
-            <tag name="form.type_extension" extended-type="Symfony\Component\Form\Extension\Core\Type\RadioType"></tag>
+            <tag name="form.type_extension" extended-type="Symfony\Component\Form\Extension\Core\Type\RadioType"/>
         </service>
     </services>
 </container>

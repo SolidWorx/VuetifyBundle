@@ -1,0 +1,19 @@
+<v-app>
+    {% if block('navigationDrawer') is defined %}
+        {{ block('navigationDrawer') }}
+    {% endif %}
+
+    {% if block('toolbar') is defined %}
+        {{ block('toolbar') }}
+    {% endif %}
+
+    <v-content>
+        <v-container {{ v_attr(containerAttr ?? []) }}>
+            {{ block('content') ?? '' }}
+        </v-container>
+    </v-content>
+
+    {% if block('footer') is defined %}
+        {{ block('footer') }}
+    {% endif %}
+</v-app>
