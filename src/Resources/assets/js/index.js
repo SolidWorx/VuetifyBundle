@@ -1,6 +1,6 @@
 import * as components from './components'
 
-function VuetifyBundle(Vue, args) {
+function VuetifyBundle(Vue) {
     Object.values(components).forEach(component => {
         Vue.component(component.name, component);
     })
