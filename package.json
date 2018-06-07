@@ -22,7 +22,7 @@
         "vuetify": "^1.0.14"
     },
     "engines": {
-        "node": ">= 4.0.0",
+        "node": "^6.2.2 || >=8.0.0",
         "npm": ">= 3.0.0"
     },
     "devDependencies": {
