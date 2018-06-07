@@ -157,7 +157,6 @@ abstract class BaseRenderer extends Renderer implements RendererInterface
         $attr = [];
 
         foreach ($this->componentConfig as $name => $value) {
-
             if (null === $value) {
                 continue;
             }

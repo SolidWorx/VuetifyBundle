@@ -81,7 +81,8 @@ class Configuration implements ConfigurationInterface
             ->end();
         };
 
-        $setOptionsConfig($node
+        $setOptionsConfig(
+            $node
             ->children()
                 ->arrayNode('default')
                 ->info('Sets global default options for each alert. Options per alert type can be overwritten in the `types` config.')
