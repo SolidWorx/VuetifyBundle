@@ -84,6 +84,16 @@ import VuetifyBundle from 'vendor/solidworx/vuetify-bundle/src/Resources/assets/
 Vue.use(VuetifyBundle);
 ```
 
+You also need the `lodash-es` package which needs to be installed manually.
+
+```bash
+$ yarn add lodash-es
+// or
+$ npm install lodash-es
+```
+
+**Note:** The `lodash-es` package is included by default in `vuetify-bundle.min.js`, so it's not necesarry to install it when using the compiled script.
+
 Usage
 -----
 
