@@ -33,10 +33,11 @@
     {%- endif -%}
 
     {%- if type is not same as('hidden') -%}
-        <v-text-field type="{{ type }}" label="{{ label }}" value="{{ value }}" {{ block('widget_attributes') }}
+
+        {% set type = textarea is defined ? 'textarea' : 'text-field' %}
+        <v-{{ type }} type="{{ type }}" label="{{ label }}" value="{{ value }}" {{ block('widget_attributes') }}
                 {%- if errors|length > 0 %} error  :error-messages="[{%- for error in errors -%}'{{ error.message|e('html_attr') }}'{%- endfor -%}]" {%- endif -%}
-                {% if textarea is defined %}multi-line{% endif %}
-        ></v-text-field>
+        ></v-{{ type }}>
     {%- else -%}
         <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
     {%- endif -%}
@@ -74,7 +75,9 @@
         {{- form_label(form) -}}
 
         {%- if not multiple %}
-            <v-radio-group input-value="{{ value }}" {{ block('widget_attributes') }}>
+            <v-radio-group value="{{ value }}" {{ block('widget_attributes') }}
+                {%- if errors|length > 0 %} error  :error-messages="[{%- for error in errors -%}'{{ error.message|e('html_attr') }}'{%- endfor -%}]" {%- endif -%}
+            >
         {% endif -%}
             {%- for child in form %}
                 {{- form_widget(child) -}}
@@ -114,11 +117,13 @@
         {%- endif -%}
     {%- endif -%}
 
-    <v-select {{ block('widget_attributes') }}{% if multiple %} multiple{% endif %} label="{{ label }}" value="{{ value }}"
+    <v-select {{ block('widget_attributes') }}{% if multiple %} multiple{% endif %} label="{{ label }}" value="{{ value }}" @input="$refs['{{ id }}'].value = $event"
+            {%- if errors|length > 0 %} error  :error-messages="[{%- for error in errors -%}'{{ error.message|e('html_attr') }}'{%- endfor -%}]" {%- endif -%}
         {%- set options = choices %}
         {{- block('choice_widget_options')|raw -}}
     >
         </v-select>
+    <input type="hidden" name="{{ full_name }}" ref="{{ id }}" />
 {%- endblock choice_widget_collapsed -%}
 
 {%- block choice_widget_options -%}
@@ -137,10 +142,35 @@
 
 {%- block date_widget -%}
     {%- if widget == 'single_text' -%}
-        <v-date-picker type="{{ picker_type }}" value="{{ value }}" reactive @input="$refs['{{ id }}'].value = $event"
+        <v-menu
+                :close-on-content-click="false"
+                :nudge-right="40"
+                lazy
+                transition="scale-transition"
+                offset-y
+                full-width
+                min-width="290px"
+                ref="{{ id }}_menu"
+        >
+            <v-text-field
+                    slot="activator"
+                    ref="{{ id }}_value"
+                    label="{{ label }}"
+                    prepend-icon="event"
+                    name="{{ full_name }}"
+                    value="{{ value }}"
+                    readonly
+                    {%- if errors|length > 0 %} error  :error-messages="[{%- for error in errors -%}'{{ error.message|e('html_attr') }}'{%- endfor -%}]" {%- endif -%}
+            ></v-text-field>
+            <v-date-picker type="{{ picker_type }}" value="{{ value }}" reactive  @input="$refs['{{ id }}_menu'].isActive = false; $refs['{{ id }}_value'].value = $event;"
             {%- if landscape %}landscape{% endif -%}
-        ></v-date-picker>
-        <input type="hidden" {{ block('widget_attributes') }} ref="{{ id }}">
+            ></v-date-picker>
+        </v-menu>
+
+        {#<v-date-picker type="{{ picker_type }}" value="{{ value }}" reactive @input="$refs['{{ id }}'].value = $event"
+            {%- if landscape %}landscape{% endif -%}
+        ></v-date-picker>#}
+        {#<input type="hidden" {{ block('widget_attributes') }} ref="{{ id }}">#}
     {%- else -%}
         <div {{ block('widget_container_attributes') }}>
             {{- date_pattern|replace({
