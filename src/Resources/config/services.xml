@@ -18,5 +18,9 @@
         <service id="SolidWorx\VuetifyBundle\Form\Extension\RadioTypeExtension">
             <tag name="form.type_extension" extended-type="Symfony\Component\Form\Extension\Core\Type\RadioType"/>
         </service>
+
+        <service id="SolidWorx\VuetifyBundle\Form\Extension\ChoiceTypeExtension">
+            <tag name="form.type_extension" extended-type="Symfony\Component\Form\Extension\Core\Type\ChoiceType"/>
+        </service>
     </services>
 </container>

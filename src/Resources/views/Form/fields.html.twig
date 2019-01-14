@@ -117,12 +117,14 @@
         {%- endif -%}
     {%- endif -%}
 
-    <v-select {{ block('widget_attributes') }}{% if multiple %} multiple{% endif %} label="{{ label }}" value="{{ value }}" @input="$refs['{{ id }}'].value = $event"
+    {% set type = autocomplete ? 'autocomplete' : 'select' %}
+    <v-{{ type }} {{ block('widget_attributes') }}{% if multiple %} multiple{% endif %} label="{{ label }}" value="{{ value }}" @input="$refs['{{ id }}'].value = $event"
             {%- if errors|length > 0 %} error  :error-messages="[{%- for error in errors -%}'{{ error.message|e('html_attr') }}'{%- endfor -%}]" {%- endif -%}
         {%- set options = choices %}
         {{- block('choice_widget_options')|raw -}}
+            browser-autocomplete="{{ random() }}"
     >
-        </v-select>
+        </v-{{ type }}>
     <input type="hidden" name="{{ full_name }}" ref="{{ id }}" />
 {%- endblock choice_widget_collapsed -%}
 
