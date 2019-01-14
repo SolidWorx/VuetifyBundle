@@ -128,6 +128,19 @@
 
 {%- block choice_widget_options -%}
     {% set items = [] %}
+
+    {%- if preferred_choices|length > 0 -%}
+        {% for group_label, choice in preferred_choices %}
+            {%- if choice is iterable -%}
+                {% set options = choice %}
+
+                {{- block('choice_widget_options') -}}
+            {%- else -%}
+                {% set items = items|merge([{"value" : choice.value, "text": choice_translation_domain is same as(false) ? choice.label : choice.label|trans({}, choice_translation_domain)}]) %}
+            {%- endif -%}
+        {% endfor %}
+    {%- endif -%}
+
     {% for group_label, choice in options %}
         {%- if choice is iterable -%}
             {% set options = choice %}
