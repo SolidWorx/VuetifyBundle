@@ -37,6 +37,7 @@
         {% set type = textarea is defined ? 'textarea' : 'text-field' %}
         <v-{{ type }} type="{{ type }}" label="{{ label }}" value="{{ value }}" {{ block('widget_attributes') }}
                 {%- if errors|length > 0 %} error  :error-messages="[{%- for error in errors -%}'{{ error.message|e('html_attr') }}'{%- endfor -%}]" {%- endif -%}
+                {% if required %}class="required"{% endif %}
         ></v-{{ type }}>
     {%- else -%}
         <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
@@ -102,10 +103,6 @@
 {%- endblock textarea_widget -%}
 
 {%- block choice_widget_collapsed -%}
-    {%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) -%}
-        {% set required = false %}
-    {%- endif -%}
-
     {% if label is empty -%}
         {%- if label_format is not empty -%}
             {% set label = label_format|replace({
@@ -120,12 +117,13 @@
     {% set type = autocomplete ? 'autocomplete' : 'select' %}
     <v-{{ type }} {{ block('widget_attributes') }}{% if multiple %} multiple{% endif %} label="{{ label }}" value="{{ value }}" @input="$refs['{{ id }}'].value = $event"
             {%- if errors|length > 0 %} error  :error-messages="[{%- for error in errors -%}'{{ error.message|e('html_attr') }}'{%- endfor -%}]" {%- endif -%}
+            {% if required %}class="required"{% endif %}
         {%- set options = choices %}
         {{- block('choice_widget_options')|raw -}}
             browser-autocomplete="{{ random() }}"
     >
         </v-{{ type }}>
-    <input type="hidden" name="{{ full_name }}" ref="{{ id }}" />
+    <input type="hidden" name="{{ full_name }}" ref="{{ id }}" value="{{ value }}" />
 {%- endblock choice_widget_collapsed -%}
 
 {%- block choice_widget_options -%}
@@ -175,6 +173,7 @@
                     name="{{ full_name }}"
                     value="{{ value }}"
                     readonly
+                    {% if required %}class="required"{% endif %}
                     {%- if errors|length > 0 %} error  :error-messages="[{%- for error in errors -%}'{{ error.message|e('html_attr') }}'{%- endfor -%}]" {%- endif -%}
             ></v-text-field>
             <v-date-picker type="{{ picker_type }}" value="{{ value }}" reactive  @input="$refs['{{ id }}_menu'].isActive = false; $refs['{{ id }}_value'].value = $event;"
