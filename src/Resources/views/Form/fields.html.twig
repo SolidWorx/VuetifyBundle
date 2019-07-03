@@ -90,11 +90,11 @@
 
 {%- block radio_widget -%}
     {% set radio_type = switch is same as(true) ? 'switch' : 'radio' %}
-    <v-{{ radio_type }} label="{{ label }}" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}></v-{{ radio_type }}>
+    <v-{{ radio_type }} label="{{ label }}" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %} color="primary"></v-{{ radio_type }}>
 {%- endblock radio_widget -%}
 
 {%- block checkbox_widget -%}
-    <v-checkbox label="{{ label }}"  {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}></v-checkbox>
+    <v-checkbox label="{{ label }}" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %} color="primary"></v-checkbox>
 {%- endblock checkbox_widget -%}
 
 {%- block textarea_widget -%}
