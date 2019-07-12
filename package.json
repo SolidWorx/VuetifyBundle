@@ -62,7 +62,7 @@
         "webpack-merge": "^4.1.2"
     },
     "dependencies": {
-        "lodash-es": "^4.17.8"
+        "lodash-es": "^4.17.14"
     },
     "publishConfig": {
         "access": "public"
