@@ -20,7 +20,8 @@
 
 {%- block form_widget_simple -%}
     {%- set type = type|default('text') -%}
-
+    {%- set password = type == 'password' -%}
+    
     {% if label is empty -%}
         {%- if label_format is not empty -%}
             {% set label = label_format|replace({
@@ -35,12 +36,12 @@
     {%- if type is not same as('hidden') -%}
 
         {% set type = textarea is defined ? 'textarea' : 'text-field' %}
-        <v-{{ type }} type="{{ type }}" label="{{ label }}" value="{{ value }}" {{ block('widget_attributes') }}
+        <v-{{ type }} type="{{ password ? 'password' : type }}" label="{{ label }}" value="{{ value }}" {{ block('widget_attributes') }}
                 {%- if errors|length > 0 %} error  :error-messages="[{%- for error in errors -%}'{{ error.message|e('html_attr') }}'{%- endfor -%}]" {%- endif -%}
                 {% if required %}class="required"{% endif %}
         ></v-{{ type }}>
     {%- else -%}
-        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+        <input type="{{ password ? 'password' : type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
     {%- endif -%}
 {%- endblock form_widget_simple -%}
 
